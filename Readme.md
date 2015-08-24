@@ -160,23 +160,24 @@ sheet.removeAllPolygons();
 
 Getting directions
 ``` javascript
-	map.getDirections(data, callback(response, status) );
+map.getDirections(data, callback(response, status) );
 ```	
 Parameters
-#### data - property object that contains the following:
-##### origin (required)
-Origin of your route. This can be text address or for more accurate result, use google latlng object. use map.getPosition(lat, lng)
+#### data
+property object that contains the following:
 
-##### destination (required)
-Destination of your route. Same format as origin.
-##### waypoints (optional)
-array of "stop-overs". Same format as origin and destination.
-##### travel mode (required)
-This can be driving, walking, or bycicling google data types. See number 2.
-##### avoidHighways (optional)
-boolean
-##### avoidTolls (optional)
-boolean
+- origin (required)
+	Origin of your route. This can be text address or for more accurate result, use google latlng object. use map.getPosition(lat, lng)
+- destination (required)
+	Destination of your route. Same format as origin.
+- waypoints (optional)
+	array of "stop-overs". Same format as origin and destination.
+- travel mode (required)
+	This can be driving, walking, or bycicling google data types. See number 2.
+- avoidHighways (optional)
+	boolean
+- avoidTolls (optional)
+	boolean
 
 ``` javascript
 var origin = map.getPosition(1.1341, 2.43);
