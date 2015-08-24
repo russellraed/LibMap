@@ -162,9 +162,7 @@ sheet.removeAllPolygons();
 Getting directions
 ``` javascript
 map.getDirections(data, callback(response, status) );
-```	
-
-``` javascript
+// sample usage
 var origin = map.getPosition(1.1341, 2.43);
 var destination = map.getPosition(13.134, 34.54);
 var travelMode = map.getTravelMode("Driving");
