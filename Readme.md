@@ -162,22 +162,6 @@ Getting directions
 ``` javascript
 map.getDirections(data, callback(response, status) );
 ```	
-Parameters
-#### data
-property object that contains the following:
-
-- origin (required)
-	Origin of your route. This can be text address or for more accurate result, use google latlng object. use map.getPosition(lat, lng)
-- destination (required)
-	Destination of your route. Same format as origin.
-- waypoints (optional)
-	array of "stop-overs". Same format as origin and destination.
-- travel mode (required)
-	This can be driving, walking, or bycicling google data types. See number 2.
-- avoidHighways (optional)
-	boolean
-- avoidTolls (optional)
-	boolean
 
 ``` javascript
 var origin = map.getPosition(1.1341, 2.43);
@@ -204,14 +188,32 @@ var data = {
 	}
 });
 ```
+
+#### data
+property object that contains the following:
+
+- origin (required)
+	Origin of your route. This can be text address or for more accurate result, use google latlng object. use map.getPosition(lat, lng)
+- destination (required)
+	Destination of your route. Same format as origin.
+- waypoints (optional)
+	array of "stop-overs". Same format as origin and destination.
+- travel mode (required)
+	This can be driving, walking, or bycicling google data types. See number 2.
+- avoidHighways (optional)
+	boolean
+- avoidTolls (optional)
+	boolean
 		
+
 Rendering Directions
 
 ``` javascript
-	map.renderDirections(response);
+map.renderDirections(response);
 ```
-Parameters:
-#### response - a google get directions response object
+#### response
+a google get directions response object
+
 ```javascript
 sheet.getDirections(data, function(response, status){
 	if (status == google.maps.DirectionsStatus.OK) {
@@ -242,7 +244,7 @@ Adding waypoints
 sheet.addWaypoint(lat, lng);
 ```
 
-Solving the roundtrip
+Solving roundtrip
 ``` javascript
 sheet.solveRoundtrip( travelMode, callback(directions, order, duration) );
 //Sample Usage:
