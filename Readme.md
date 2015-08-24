@@ -14,6 +14,9 @@ You must include lib-map.js, google maps js, tsp.js and solver.js on your html.
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 ```
 
+LibMap
+------
+
 The library can now be instantiated by the LibMap(element) constructor.
 
 ``` javascript
@@ -62,17 +65,29 @@ Set travel mode - sets the current travel mode.Possible parameters are same as a
 map.setTravel mode("Walking");
 ```
 
-Markers
--------
+Sheets
+------
+
+A map can have multiple sheets. Sheets contains gmap components that can be rendered by the map.
+
+Creating a sheet.
+
+``` javascript
+var sheet = map.addSheet();
+```
+
+###Markers
 
 Creating a marker and displaying it in the map
 	
-	Syntax: 
-		var marker = map.createMarker(lat, lng, title, iconUrl);
-	Returns: 
-		The google marker object that was created.
-	Sample usage:
-		var marker = map.createMarker(-33.344, 102.434, "My Marker", "/img/1.png");
+Returns: 
+	The google marker object that was created.
+
+``` javascript
+var marker = map.createMarker(lat, lng, title, iconUrl);
+//Sample usage:
+var marker = map.createMarker(-33.344, 102.434, "My Marker", "/img/1.png");
+```
 
 Remove a marker from the map
 	
