@@ -76,108 +76,112 @@ Creating a sheet.
 var sheet = map.addSheet();
 ```
 
-###Markers
+### Markers
 
-Creating a marker and displaying it in the map
-	
-Returns: 
-	The google marker object that was created.
+Creating a marker and displaying it in the map. This returns the google marker object that was created.
 
 ``` javascript
-var marker = map.createMarker(lat, lng, title, iconUrl);
+var marker = sheet.createMarker(lat, lng, title, iconUrl);
 //Sample usage:
-var marker = map.createMarker(-33.344, 102.434, "My Marker", "/img/1.png");
+var marker = sheet.createMarker(-33.344, 102.434, "My Marker", "/img/1.png");
 ```
 
-Remove a marker from the map
-	
-	Syntax:
-		map.removeMarker(marker);
+Remove a marker from the sheet.
+``` javascript
+sheet.removeMarker(marker);
+```
 
-Remove all markers from the map
+Remove all markers from the map.
+``` javascript
+sheet.removeAllMarkers();
+```
 
-	Syntax:
-		map.removeAllMarkers();
-
-Add a marker click listener
-
-	Syntax:
-		map.addMarkerClickListener(marker, callback);
-	Sample Usage:
-		var marker = map.createMarker(-33.344, 102.434, "My Marker", "/img/1.png");
-		map.addMarkerClickListener(marker, function(){
-			alert("marker was clicked!");
+Add a marker click listener.
+``` javascript
+sheet.addMarkerClickListener(marker, callback);
+//Sample Usage:
+var marker = sheet.createMarker(-33.344, 102.434, "My Marker", "/img/1.png");
+sheet.addMarkerClickListener(marker, function(){
+	alert("marker was clicked!");
 });
+```
 
+### Polylines
 
-Polylines
-
-Create a polyline
-Syntax: 
-		var polyline= map.createPolyline(path);
-	Returns: 
-		The google polyline object that was created.
-	Parameters:
-		path - an array of property objects containing lat and lng values.
-	Sample usage:
-		var path = [
-			{ lat: 123, lng: 12.1 },
-			{ lat: 12.3, lng: 80.13 },
-			{ lat: 1.23, lng: 33.12 },
-		];
-		var polyline = map.createPolyline(path);
+Create a polyline by passing an array property object containing lat ang lng values. This returns the google polyline object that was created.
+``` javascript
+var polyline= map.createPolyline(path);
+//Sample usage:
+var path = [
+	{ lat: 123, lng: 12.1 },
+	{ lat: 12.3, lng: 80.13 },
+	{ lat: 1.23, lng: 33.12 },
+];
+var polyline = sheet.createPolyline(path);
+```
 
 Remove a polyline
-Syntax: 
-map.removePolyline(polyline);
+
+``` javascript
+sheet.removePolyline(polyline);
+```
 
 Remove all polylines
-Syntax: 
-map.removeAllPolylines();
+``` javascript
+sheeet.removeAllPolylines();
+```
 
-Polygons
+### Polygons
 
-Create a polygon
-Syntax: 
-		var polygon = map.createPolygon(path);
-	Returns: 
-		The google polygon object that was created.
-	Parameters:
-		path - an array of property objects containing lat and lng values.
-	Sample usage:
-		var path = [
-			{ lat: 123, lng: 12.1 },
-			{ lat: 12.3, lng: 80.13 },
-			{ lat: 1.23, lng: 33.12 },
-		];
-		var polygon= map.createPolygon(path);
+Create a polygon by passing an array property object containing lat ang lng values. This returns the google polygon object that was created.
+``` javascript
+var polygon = sheet.createPolygon(path);
+	
+//Sample usage:
+var path = [
+	{ lat: 123, lng: 12.1 },
+	{ lat: 12.3, lng: 80.13 },
+	{ lat: 1.23, lng: 33.12 },
+];
+var polygon= sheet.createPolygon(path);
+```
 
 Remove a polygon
-Syntax: 
-map.removePolygons(polygon);
+``` javascript
+sheet.removePolygons(polygon);
+```
 
 Remove all polygons
-Syntax: 
-map.removeAllPolygons();
+``` javascript
+sheet.removeAllPolygons();
+```
 
-Directions
+### Directions
+
 Getting directions
-
-Syntax:
+``` javascript
 	map.getDirections(data, callback(response, status) );
-Parameters:
-	data - property object that contains the following:
-		origin (required) - Origin of your route. This can be text address or for more accurate result, use google latlng object. use map.getPosition(lat, lng)
-		destination (required) - Destination of your route. Same format as origin.
-		waypoints (optional) - array of "stop-overs". Same format as origin and destination.
-		travel mode (required)- This can be driving, walking, or bycicling google data types. See number 2.
-		avoidHighways (optional) - boolean
-		avoidTolls (optional) - boolean
+```	
+Parameters
+#### data - property object that contains the following:
+##### origin (required)
+Origin of your route. This can be text address or for more accurate result, use google latlng object. use map.getPosition(lat, lng)
 
-Sample usage:
-	var origin = map.getPosition(1.1341, 2.43);
+##### destination (required)
+Destination of your route. Same format as origin.
+##### waypoints (optional)
+array of "stop-overs". Same format as origin and destination.
+##### travel mode (required)
+This can be driving, walking, or bycicling google data types. See number 2.
+##### avoidHighways (optional)
+boolean
+##### avoidTolls (optional)
+boolean
+
+``` javascript
+var origin = map.getPosition(1.1341, 2.43);
 var destination = map.getPosition(13.134, 34.54);
-	var travelMode = map.getTravelMode("Driving");
+var travelMode = map.getTravelMode("Driving");
 
 var waypoint1 = map.getPosition(13.134, -34.54);
 var waypoint2 = map.getPosition(-43.134, -34.54);
@@ -191,52 +195,66 @@ var data = {
 	 	avoidHighways: false,
   		avoidTolls: true
 	}
-	map.getDirections(data, function(response, status){
-if (status == google.maps.DirectionsStatus.OK) {
-			//do something with the response
-}else{
-			//show no results
-}
+	sheet.getDirections(data, function(response, status){
+	if (status == google.maps.DirectionsStatus.OK) {
+		//do something with the response
+	}else{
+		//show no results
+	}
 });
+```
 		
 Rendering Directions
-Syntax:
+
+``` javascript
 	map.renderDirections(response);
+```
 Parameters:
-	response - a google get directions response object
-Sample Usage:
-	map.getDirections(data, function(response, status){
-if (status == google.maps.DirectionsStatus.OK) {
+#### response - a google get directions response object
+```javascript
+sheet.getDirections(data, function(response, status){
+	if (status == google.maps.DirectionsStatus.OK) {
 		map.renderDirections(response);
-}else{
+	}else{
 		//show no results
-}
+	}
 });
+```
 	
 Remove directions in the map
-Syntax:
-	map.removeDirections();
+
+``` javascript
+sheet.removeDirections();
+```
 
 Solver
+------
 
 Initializing the solver
-	Syntax:
-		map.initTSP();
+
+``` javascript
+sheet.initTSP();
+```
+
 Adding waypoints
-	Syntax:
-		map.addWaypoint(lat, lng);
-Solving the roundtrip:
-Syntax:
-	map.solveRoundtrip( travelMode, callback(directions, order, duration) );
-Sample Usage:
-map.addWaypoint(123, 123);
-map.addWaypoint(124, 124);
-map.solveRoundtrip(travelMode, function(directions, order, duration){
-		map.renderDirections(directions);
-		//do something else with order 
-		//do something else with duration
-	});
+``` javascript
+sheet.addWaypoint(lat, lng);
+```
+
+Solving the roundtrip
+``` javascript
+sheet.solveRoundtrip( travelMode, callback(directions, order, duration) );
+//Sample Usage:
+sheet.addWaypoint(123, 123);
+sheet.addWaypoint(124, 124);
+sheet.solveRoundtrip(travelMode, function(directions, order, duration){
+	sheet.renderDirections(directions);
+	//do something else with order 
+	//do something else with duration
+});
+```
 
 Starting over
-Syntax:
-	map.startOver();
+``` javascript
+map.startOver();
+```
