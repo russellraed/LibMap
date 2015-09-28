@@ -1,67 +1,97 @@
-<!doctype html>
-<!--
-
-  Instructions:
-
-  - Save this file.
-  - Replace "USER" with your GitHub username.
-  - Replace "REPO" with your GitHub repo name.
-  - Replace "Your Project" with your project name.
-  - Upload this file (or commit to GitHub Pages).
-
-  Customize as you see fit!
-
--->
+<!DOCTYPE html>
 <html>
 <head>
-  <meta charset='utf-8'>
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="viewport" content="width=device-width">
+	<title>Lib Map Test</title>
 
-  <title>LibMap Guide</title>
+	<script type="text/javascript" src="jquery-1.9.1.min.js"></script>
+	<script type="text/javascript" src="lib-map.js"></script>
+	<script type="text/javascript" src="tsp.js"></script>
+	<script type="text/javascript" src="solver.js"></script>
+	
 
-  <!-- Flatdoc -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script src='https://cdn.rawgit.com/rstacruz/flatdoc/v0.9.0/legacy.js'></script>
-  <script src='https://cdn.rawgit.com/rstacruz/flatdoc/v0.9.0/flatdoc.js'></script>
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDs-yHEIicm_0EdS7tPpBS65f090YRtg2U"></script>
+	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
 
-  <!-- Flatdoc theme -->
-  <link  href='https://cdn.rawgit.com/rstacruz/flatdoc/v0.9.0/theme-white/style.css' rel='stylesheet'>
-  <script src='https://cdn.rawgit.com/rstacruz/flatdoc/v0.9.0/theme-white/script.js'></script>
-
-  <!-- Meta -->
-  <meta content="Your Project" property="og:title">
-  <meta content="Your Project description goes here." name="description">
-
-  <!-- Initializer -->
-  <script>
-    Flatdoc.run({
-      fetcher: Flatdoc.github('russellraed/LibMap')
-    });
-  </script>
+	<style>
+		body, html, #map{
+			width: 100%;
+			height: 100%;
+		}
+		html, body{
+			padding: 0;
+			margin: 0;
+		}
+	</style>
 </head>
-<body role='flatdoc'>
+<body>
+	<div id="map"></div>
 
-  <div class='header'>
-    <div class='left'>
-      <h1>LibMap Guide</h1>
-      <ul>
-        <li><a href='https://github.com/russellraed/LibMap'>View on GitHub</a></li>
-        <li><a href='https://github.com/russellraed/LibMap/issues'>Issues</a></li>
-      </ul>
-    </div>
-    <div class='right'>
-      <!-- GitHub buttons: see http://ghbtns.com -->
-      <iframe src="http://ghbtns.com/github-btn.html?user=russellraed&amp;repo=LibMap&amp;type=watch&amp;count=true" allowtransparency="true" frameborder="0" scrolling="0" width="110" height="20"></iframe>
-    </div>
-  </div>
+	<script type="text/javascript">
+		//Sample implementation of draggable marker
 
-  <div class='content-root'>
-    <div class='menubar'>
-      <div class='menu section' role='flatdoc-menu'></div>
-    </div>
-    <div role='flatdoc-content' class='content'></div>
-  </div>
+		var map = new LibMap(document.getElementById("map"));
+		map.setCenter(1.1, 1.2);
 
+		var sheet1 = map.addSheet();
+
+		//CREATE A MARKER
+		//Set last parameter to true to set marker to draggable
+		var marker1 = sheet1.createMarker(1.1, 1.2, "title 1", null, true);
+		
+		//[ NEW ] switch between show() or hide() to toggle sheet visibility
+		sheet1.show();
+		//[ NEW ] sheet1.hide();
+
+		//[ NEW ] add listener click listener (returns the marker object)
+		sheet1.getMarkerInfoOnClick(marker1, function(marker){
+			//own code here.
+			console.log("this is your marker:");
+			console.log(marker);
+
+			console.log("this is your marker position:");
+			console.log(marker.getPosition());
+		});
+
+		//[ NEW ] add listener drag listener (returns the marker object)
+		sheet1.getMarkerInfoOnDragEnd(marker1, function(marker){
+			//own code here. do something with the marker location
+			console.log("this is your marker:");
+			console.log(marker);
+
+			console.log("this is your marker position:");
+			console.log(marker.getPosition());
+		});
+
+		//[ NEW ] There are also listeners for start drag and while dragging:
+		sheet1.getMarkerInfoOnDragStart(marker1, function(marker){
+			//own code here. do something with the marker location
+			console.log("Drag Start");
+		});
+
+		sheet1.getMarkerInfoOnDrag(marker1, function(marker){
+			//own code here. do something with the marker location
+			console.log("Currently dragging the marker");
+		});
+	
+
+		//PINNING CURRENT LOCATION
+
+		//1. [ NEW ] Get Current Location
+		console.log("Fetching your location...");
+		map.getCurrentLocation(function(location){
+			console.log("Your location:");
+			console.log(location);
+			
+			if(typeof location !== 'undefined' && location != null){
+				//2. [ NEW ] Render location as PIN
+				//syntax:
+				//sheet.createMarkerFromLocation(location, title, iconUrl, draggable);
+				var markerFromLocation = sheet1.createMarkerFromLocation(location, "Test Title", null, false);
+			}else{
+				//error in geoloction service
+			}
+		});
+		
+	</script>
 </body>
 </html>
